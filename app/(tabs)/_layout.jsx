@@ -7,6 +7,8 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { SymbolView } from 'expo-symbols';
+
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -34,10 +36,24 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="Study"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'Study',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="access-time-filled" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="Play"
+        options={{
+          title: 'Play',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="gamepad" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="Profit"
+        options={{
+          title: 'Profit',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="attach-money" color={color} />,
         }}
       />
     </Tabs>

@@ -13,6 +13,9 @@ const MAPPING = {
   'paperplane.fill': 'send',
   'chevron.left.forwardslash.chevron.right': 'code',
   'chevron.right': 'chevron-right',
+  'attach-money': 'attach-money',
+  'gamepad':'gamepad',
+  'access-time-filled':'access-time-filled'
 } as Partial<
   Record<
     import('expo-symbols').SymbolViewProps['name'],
