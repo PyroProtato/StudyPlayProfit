@@ -42,6 +42,7 @@ const App = () => {
   const [diamondAnimShown, setDiamondAnimShown] = useState(false);
   const [diamondsAdded, setDiamondsAdded] = useState(0);
   const [showPrevious, setShowPrevious] = useState(false);
+  const [noTouch, setNoTouch] = useState(false);
 
   const saveTicketData = async () => {
     console.log("saved");
@@ -164,9 +165,9 @@ const App = () => {
     let boostKey = Object.keys(boost)[0];
     let boostValue = Object.values(boost)[0];
     const newBoosts = {...boosts};
-    setPreviousDisplayBoost(Math.round((newBoosts[boostKey]*100)/100));
+    setPreviousDisplayBoost((Math.round(newBoosts[boostKey]*100)/100));
     newBoosts[boostKey] = newBoosts[boostKey] + boostValue;
-    setNewDisplayBoost(Math.round((newBoosts[boostKey]*100)/100));
+    setNewDisplayBoost((Math.round(newBoosts[boostKey]*100)/100));
     setBoosts(newBoosts);
     if (boostKey == "studyRequirement") {
       boostKey = "Seconds to Study per Ticket ";
@@ -174,7 +175,7 @@ const App = () => {
       boostKey = "Diamond Multiplyer in Game ";
       boostValue = "+" + boostValue;
     } else if (boostKey == "exchangeRate") {
-      boostKey = "Diamonds Gained per 3 Tickets "
+      boostKey = "Diamonds Gained per 3 Tickets ";
       boostValue = "+" + boostValue;
     }
     setDisplayBoostKey(boostKey);
@@ -187,8 +188,9 @@ const App = () => {
   };
 
   const addDiamondsAnim = async (amount) => {
+    setNoTouch(true);
     setDiamondAnimShown(true);
-    let targetY = -40;
+    let targetY = -80;
     await pause(1000);
     diamondTranslateY.value = withTiming(diamondTranslateY.value + targetY, {duration: 500, easing: Easing.inOut(Easing.quad)});
     await pause(200);
@@ -196,9 +198,11 @@ const App = () => {
     setDiamonds(amount);
     await pause(20);
     diamondTranslateY.value = 0;
+    setNoTouch(false);
   }
 
   const gachaAnim = async (amount) => { 
+    setNoTouch(true);
     setShowPrevious(false);
     let targetY = -1000;
     screenTranslateY.value = withTiming(screenTranslateY.value + targetY, {duration: 2000, easing: Easing.inOut(Easing.quad)});
@@ -211,6 +215,7 @@ const App = () => {
     await pause(2000);
     gachaOpacity.value = 0;
     gachaScale.value = 0;
+    setNoTouch(false);
   }
 
   const gachaAnimStyle = useAnimatedStyle(() => ({
@@ -223,7 +228,11 @@ const App = () => {
 
   return (
 
-    <Animated.View style={[styles.container, {transform: [{translateY: screenTranslateY}]}]}>
+    <Animated.View style={[styles.container, {transform: [{translateY: screenTranslateY}], width:"100%"}]}>
+
+      <Image source={require('@/assets/images/profit.png')} style={{height:75, resizeMode:"contain", alignSelf:"flex-start", margin:30, marginLeft:-75}}></Image>
+
+      <View style={[styles.horizontalBreak, {marginTop: 0, backgroundColor: "#04c61fff"}]}></View>
 
       <View style={styles.ticketContainer}>
         <Image source={require('@/assets/images/ticket-icon.png')} style={styles.ticketIcon}></Image>
@@ -234,10 +243,14 @@ const App = () => {
               <Image source={require('@/assets/images/diamond-icon.png')} style={styles.ticketIcon}></Image>
               <Text style={styles.ticketText}>{diamonds}</Text>
       </View>
-      {diamondAnimShown && <Animated.View style={[styles.diamondAddContainer, {transform: [{translateY: diamondTranslateY}]}, ]}>
+
+      {diamondAnimShown && <Animated.View style={[styles.diamondAddContainer, {transform: [{translateY: diamondTranslateY}]}]}>
         <Image source={require('@/assets/images/diamond-icon.png')} style={styles.ticketIcon}></Image>
         <Text style={[styles.appButtonText, {color: "rgb(50, 255, 50)"}]}>+{diamondsAdded}</Text>
       </Animated.View>}
+      
+
+      <View style={styles.buttoncontainer}>
 
       <PopButton
         onPress={() => {
@@ -252,20 +265,11 @@ const App = () => {
         <Text style={styles.priceText}>3x Tickets</Text>
       </PopButton>
 
-      <View style={styles.buttoncontainer}>
-
       <PopButton
         onPress={() => {if (diamonds >= 100) {gacha(); setDiamonds(diamonds-100);}}}
         style={[styles.buttonContainer, {backgroundColor:"rgb(14, 110, 219)"}]}>
         <Text style={styles.appButtonText}>Draw (1x)</Text>
         <Text style={styles.priceText}>100 Diamonds</Text>
-      </PopButton>
-
-      <PopButton
-        onPress={() => {}}
-        style={[styles.buttonContainer, {backgroundColor:"rgb(14, 45, 219)"}]}>
-        <Text style={styles.appButtonText}>Draw (10x)</Text>
-        <Text style={styles.priceText}>1000 Diamonds</Text>
       </PopButton>
 
       </View>
@@ -288,6 +292,8 @@ const App = () => {
             <Text style={[styles.rarityText, {fontSize:24}]}>{previousDisplayBoost} --{">"} {newDisplayBoost}</Text>
           </View>
       </Animated.View>
+
+      {noTouch && <View style={styles.fullScreen}></View>}
 
     </Animated.View>
 

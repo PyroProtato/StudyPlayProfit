@@ -8,7 +8,7 @@ import {PopButton} from "@/app/components.jsx"
 const App = () => {
   const navigation = useNavigation();
   const [isRunning, setIsRunning] = useState(false);
-  const [time, setTime] = useState(60000*179.95);
+  const [time, setTime] = useState(0);
   const intervalRef = useRef(null);
   const isInitialMount = useRef(true);
 
@@ -114,6 +114,10 @@ const App = () => {
 
     <View style={styles.container}>
 
+      <Image source={require('@/assets/images/study2.png')} style={{height:75, resizeMode:"contain", alignSelf:"flex-start", margin:30, marginLeft:-75}}></Image>
+      
+      <View style={[styles.horizontalBreak, {marginTop: 0, backgroundColor: "#0077e1ff"}]}></View>
+
       <View style={styles.ticketContainer}>
         <Image source={require('@/assets/images/ticket-icon.png')} style={styles.ticketIcon}></Image>
         <Text style={styles.ticketText}>{tickets}</Text>
@@ -154,9 +158,9 @@ const App = () => {
       <Text style={styles.appButtonText}>Time For Each Ticket: {Math.round(boosts["studyRequirement"]/60 * 100) / 100} minutes</Text>
 
       <PopButton
-        onPress={() => {setTickets(tickets+3);}}
+        onPress={() => {setTime(time+1000*60*15)}}
         style={[styles.buttonContainer, {backgroundColor: "rgb(50, 50, 200)", height:40, width:400}]}>
-        <Text style={styles.appButtonText}>(DEV TOOL) Press to get 3 tickets</Text>
+        <Text style={styles.appButtonText}>(DEV TOOL) Press to "study" for 15 minutes</Text>
       </PopButton>
 
       

@@ -7,6 +7,21 @@ const styles = StyleSheet.create({
       flexDirection: "column",
       alignItems: "center",
     },
+    fullScreen: {
+      backgroundColor: 'rgba(0, 0, 0, 0)',
+      flex:1,
+      flexDirection: "column",
+      alignItems: "center",
+      width:"100%",
+      height:"100%",
+      position: "absolute"
+    },
+    horizontalBreak: {
+      backgroundColor: "rgb(255, 255, 255)",
+      height:5,
+      width:"100%",
+      marginVertical: 10
+    },
     minCurContainer: {
       backgroundColor: 'rgb(0, 0, 0, 1',
       flex:1,
@@ -70,18 +85,18 @@ const styles = StyleSheet.create({
         justifyContent: "flex-start",
         position: "absolute"
       },
-      diamondAddContainer: {
-        flexDirection: "row",
-        height: 40,
-        width: 125,
-        backgroundColor: "rgb(3, 102, 196, 0)",
-        alignSelf: 'flex-end',
-        marginTop: 115,
-        margin: 25,
-        borderRadius: 10,
-        justifyContent: "flex-start",
-        position: "absolute"
-      },
+    diamondAddContainer: {
+      flexDirection: "row",
+      height: 40,
+      width: 125,
+      backgroundColor: "rgba(3, 102, 196, 0)",
+      alignSelf: 'flex-end',
+      marginTop: 155,
+      marginRight: 25,
+      borderRadius: 10,
+      justifyContent: "flex-start",
+      position: "absolute"
+    },
     cardContainer: {
       flexDirection: "column",
       height: 100,
@@ -121,7 +136,7 @@ const styles = StyleSheet.create({
       fontWeight: "bold",
       alignSelf: "center",
       textAlign: "center",
-      marginTop: 150,
+      marginTop: 25,
       marginBottom: 10,
     },
     rewardText: {
@@ -130,7 +145,7 @@ const styles = StyleSheet.create({
       alignSelf: "center",
       textAlign: "center",
       marginVertical: 10,
-      marginTop: 50,
+      marginTop: 25,
     },
     nextRewardText: {
       fontSize: 30,

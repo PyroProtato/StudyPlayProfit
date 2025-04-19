@@ -65,3 +65,5 @@ export const MovingView = ({children, style, running, nx, ny}) => {
     );
 
 }
+
+export default PopButton;

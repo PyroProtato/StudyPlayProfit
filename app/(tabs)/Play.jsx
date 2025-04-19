@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import styles from "@/app/styles.js";
 import {PopButton} from "@/app/components.jsx"
 import Animated, { useSharedValue, FadeIn, FadeOut, withSpring, withTiming, useAnimatedStyle, Easing, } from 'react-native-reanimated';
+import { Link } from 'expo-router';
 
 
 let suits = ["♣️", "❤️", "♠️", "♦️"];
@@ -21,7 +22,7 @@ const App = () => {
   const [dealerTotal, setDealerTotal] = useState(0);
 
   const [stage, setStage] = useState("betting");
-  const [bet, setBet] = useState(0);
+  const [bet, setBet] = useState(null);
   const [init, setInit] = useState(true);
   const [profit, setProfit] = useState(0);
   const [noTouch, setNoTouch] = useState(false);
@@ -128,7 +129,7 @@ const App = () => {
   
   useEffect(() => {
     if (stage == "betting" && init == true) {
-      setBet(0);
+      setBet(null);
       setPlayerCards([]);
       setDealerCards([]);
       setInit(false);
@@ -151,6 +152,7 @@ const App = () => {
       resultAnim();
       await pause(3000);
       setInit(true);
+      setBet(null);
       setStage("betting");
     }
   }
@@ -183,12 +185,13 @@ const App = () => {
       setDealerCards(dealerCards.concat(drawedCards));
       await pause(1000);
     }
+    console.log(cardTotal);
     if (cardTotal == "bust" || cardTotal < playerTotal) {
       resultTextColor = "rgb(50, 250, 50)";
-      setProfit(Math.round(Number(bet)*2*boosts["gameMult"])-bet);
+      setProfit(Math.round(Number(bet)*boosts["gameMult"]));
       resultAnim();
       await pause(3000);
-      setDiamonds(diamonds+Math.round(Number(bet)*2*boosts["gameMult"]));
+      setDiamonds(diamonds+Number(bet)+Math.round(Number(bet)*boosts["gameMult"]));
     } else if (cardTotal > playerTotal) {
       resultTextColor = "rgb(250, 50, 50)";
       setProfit(bet*-1);
@@ -202,6 +205,7 @@ const App = () => {
       setDiamonds(diamonds+Math.round(Number(bet)));
     }
     setStage("betting");
+    setBet(null);
     setInit(true);
     setNoTouch(false);
   };
@@ -237,6 +241,7 @@ const App = () => {
 
   const resultAnim = async () => { 
     setNoTouch(true);
+    await pause(200);
     resultOpacity.value = withTiming(1, { duration:1000, easing: Easing.linear });
     resultScale.value = withTiming(1, { duration:1000, easing: Easing.bezier(0.25, 0.1, 0.25, 1) });
     await pause(2000);
@@ -262,6 +267,10 @@ const App = () => {
 
     <View style={styles.container}>
 
+      <Image source={require('@/assets/images/play.png')} style={{height:75, resizeMode:"contain", alignSelf:"flex-start", margin:30, marginLeft:-75}}></Image>
+
+      <View style={[styles.horizontalBreak, {marginTop: 0, backgroundColor: "#ffdb25ff"}]}></View>
+
       <View style={styles.ticketContainer}>
         <Image source={require('@/assets/images/ticket-icon.png')} style={styles.ticketIcon}></Image>
         <Text style={styles.ticketText}>{tickets}</Text>
@@ -271,6 +280,10 @@ const App = () => {
               <Image source={require('@/assets/images/diamond-icon.png')} style={styles.ticketIcon}></Image>
               <Text style={styles.ticketText}>{diamonds}</Text>
       </View>
+
+      <Link style={[styles.appButtonText, {alignSelf:"flex-start", marginLeft:10, color:"rgb(0, 81, 255)"}]} target="_blank" rel="noopener noreferrer" href="https://bicyclecards.com/how-to-play/blackjack">
+          How to play Blackjack
+      </Link>
 
       <View style={[styles.cardContainer]}>
         <Text style={[styles.appButtonText, {fontSize:25}]}>Dealer Cards</Text>
@@ -322,7 +335,6 @@ const App = () => {
 
       <Text style={styles.appButtonText}>Current Diamond Multiplyer: x{Math.round(boosts["gameMult"]*100)/100}</Text>
       
-      <Image source={require('@/assets/images/cards/card_back.png')} style={styles.cardImage}></Image>
 
       {noTouch && <Animated.View style={[styles.container, resultBgAnimStyle, {position:"absolute", backgroundColor:"rgba(119, 119, 119, 0.63)", justifyContent:"center", height:"100%", width:"100%"}]}></Animated.View>}
       
