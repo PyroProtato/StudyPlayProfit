@@ -272,7 +272,7 @@ const App = () => {
         <Text style={styles.priceText}>100 Diamonds</Text>
       </PopButton>
 
-      </View>
+      </View> 
 
       <Image source={require('@/assets/images/cards/card_back.png')} style={styles.cardImage}></Image>
       

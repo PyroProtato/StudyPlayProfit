@@ -53,7 +53,7 @@ export default app;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'rgb(0, 0, 0, 0',
+        backgroundColor: 'rgb(0, 0, 0)',
         height: "100%",
         width:"100%",
         flexDirection: 'column',
