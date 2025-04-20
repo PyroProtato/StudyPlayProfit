@@ -1,4 +1,4 @@
-# Welcome to your Expo app 👋
+# Welcome to StudyPlayProfit!
 
 ## Demo
 https://studygamegacha2--pw5wp7j82a.expo.app/
