@@ -135,6 +135,7 @@ const App = () => {
       saveBoostData();
     } 
       }, [boosts]);
+
   
 
   const gacha = () => {
@@ -228,9 +229,11 @@ const App = () => {
 
   return (
 
+    <View style={[styles.container, {width:"100%", height:"100%", color:"rgb(0, 0, 0)"}]}>
+
     <Animated.View style={[styles.container, {transform: [{translateY: screenTranslateY}], width:"100%"}]}>
 
-      <Image source={require('@/assets/images/profit.png')} style={{height:75, resizeMode:"contain", alignSelf:"flex-start", margin:30, marginLeft:-75}}></Image>
+      <Image source={require('@/assets/images/profit.png')} style={{width:"30%", resizeMode:"contain", alignSelf:"flex-start", margin:"2%"}}></Image>
 
       <View style={[styles.horizontalBreak, {marginTop: 0, backgroundColor: "#04c61fff"}]}></View>
 
@@ -268,7 +271,7 @@ const App = () => {
       <PopButton
         onPress={() => {if (diamonds >= 100) {gacha(); setDiamonds(diamonds-100);}}}
         style={[styles.buttonContainer, {backgroundColor:"rgb(14, 110, 219)"}]}>
-        <Text style={styles.appButtonText}>Draw (1x)</Text>
+        <Text style={styles.appButtonText}>Draw Boost (1x)</Text>
         <Text style={styles.priceText}>100 Diamonds</Text>
       </PopButton>
 
@@ -296,6 +299,8 @@ const App = () => {
       {noTouch && <View style={styles.fullScreen}></View>}
 
     </Animated.View>
+
+    </View>
 
   );
 }

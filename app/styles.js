@@ -40,9 +40,22 @@ const styles = StyleSheet.create({
       alignItems: "center",
       alignSelf: "center",
     },
+    checkboxContainer: {
+      backgroundColor: 'rgba(0, 0, 0, 0)',
+      flexDirection: 'row',
+      alignItems: "center",
+      alignSelf: "center",
+      marginHorizontal: 10,
+    },
+    checkbox: {
+      alignSelf:'center',
+      height:40,
+      width: 40,
+      marginHorizontal: 10
+    },
     buttonContainer: {
       height: 100,
-      width: 200,
+      width: "35%",
       margin: 25,
       borderRadius: 25,
       justifyContent: "center"
@@ -50,7 +63,7 @@ const styles = StyleSheet.create({
     checkButton: {
       backgroundColor: "rgb(54, 255, 14)",
       height: 100,
-      width: 100,
+      width: "20%",
       marginLeft: 25,
       borderRadius: 5,
       justifyContent: "center"
@@ -100,7 +113,7 @@ const styles = StyleSheet.create({
     cardContainer: {
       flexDirection: "column",
       height: 100,
-      width: 400,
+      width: "90%",
       backgroundColor: "rgb(75, 75, 75)",
       alignSelf: 'center',
       borderRadius: 10,
@@ -200,7 +213,7 @@ const styles = StyleSheet.create({
     },
     betInput: {
       height: 100,
-      width: 400,
+      width: "70%",
       fontSize: 30,
       fontWeight: "bold",
       color: "rgb(0, 60, 255)",

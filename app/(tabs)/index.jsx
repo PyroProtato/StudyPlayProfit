@@ -5,8 +5,8 @@ import { Link } from 'expo-router';
 import {PopButton} from "@/app/components.jsx"
 
 let howToPlay = "StudyPlayProfit is a game aimed at making studying more fun!\n\nClick on the Study tab and press the button to begin studying. Studying gives you tickets.\nClick on the Profit tab to exchange your tickets for diamonds and to spend your diamonds for boosts to income rates.\nClick on the play tab to gamble your diamonds for a chance to get even more diamonds by playing Blackjack";
-let credits = "Coding and Asset Creation by Nicholas M\nLibrary used: React Native + Expo\nAsset Creation Software: Google Drawings";
-let projectInfo = "This project utilizes React Native Expo, which is a programming framework that allows you to create iOS apps and Android apps. This means that you could use this project as you would an App on your smartphone! However, this requires a $100 apple developer pass, and I don't really have the money for that -_- so probably not now. You can view the demo video in the google drive folder to see it working on my iPad though.\n\nHours Spent Coding: ~40";
+let credits = "Coding and Asset Creation by PyroProtato\nLibrary used: React Native + Expo\nAsset Creation Software: Google Drawings\nSome Project and Coding guidance: Google AI     and various sources on Google";
+let projectInfo = "This project utilizes React Native Expo, which is a programming framework that allows you to create iOS apps and Android apps.\n\nHours Spent Coding: ~40";
 
 const app = () => {
 
@@ -15,7 +15,7 @@ const app = () => {
   return (
     <View style={styles.container}>
 
-      <Image style={[styles.image, {marginBottom: -50, marginTop: -50}]} source={require("@/assets/images/logo.png")}></Image>
+      <Image style={[styles.image, {marginBottom: -125, marginTop: -125}]} source={require("@/assets/images/logo.png")}></Image>
 
       <View style={styles.horizontalBreak}></View>
 
@@ -41,9 +41,7 @@ const app = () => {
 
       </View>
 
-      <ScrollView style={{alignContent:"center", marginHorizontal:"12.5%"}}>
         <Text style={styles.description}>{screenText}</Text>
-      </ScrollView>
 
     </View>
   )
@@ -67,7 +65,7 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
       height: 100,
-      width: 150,
+      width: "25%",
       margin: 25,
       borderRadius: 25,
       justifyContent: "center"
@@ -95,10 +93,9 @@ const styles = StyleSheet.create({
     },
     image: {
       resizeMode: "contain",
-      verticalAlign: "middle",
-      height: "50%",
+      verticalAlign: "top",
+      width: "90%",
       marginHorizontal:-50,
-      marginVertical: 50
     },
     title: {
         color: 'white',
@@ -112,10 +109,10 @@ const styles = StyleSheet.create({
     },
     description: {
       color: 'white',
-      fontSize:20, 
+      fontSize:15, 
       margin: 20,
-      marginHorizontal: "12.5%",
+      marginHorizontal: "5%",
       textAlign: 'center',
-      width: "75%"
+      width: "90%"
     },
   })

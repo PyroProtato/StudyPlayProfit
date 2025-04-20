@@ -9,6 +9,9 @@ import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { SymbolView } from 'expo-symbols';
 
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+
+
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -39,21 +42,28 @@ export default function TabLayout() {
         name="Study"
         options={{
           title: 'Study',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="access-time-filled" color={color} />,
+          tabBarIcon: ({ color }) => <MaterialIcons size={28} name="access-time-filled" color={color} />,
         }}
       />
       <Tabs.Screen
         name="Play"
         options={{
           title: 'Play',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="gamepad" color={color} />,
+          tabBarIcon: ({ color }) => <MaterialIcons size={28} name="gamepad" color={color} />,
         }}
       />
       <Tabs.Screen
         name="Profit"
         options={{
           title: 'Profit',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="attach-money" color={color} />,
+          tabBarIcon: ({ color }) => <MaterialIcons size={28} name="attach-money" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="Settings"
+        options={{
+          title: 'Settings',
+          tabBarIcon: ({ color }) => <MaterialIcons size={28} name="settings" color={color} />,
         }}
       />
     </Tabs>

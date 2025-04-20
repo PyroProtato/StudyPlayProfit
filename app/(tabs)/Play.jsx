@@ -8,6 +8,7 @@ import Animated, { useSharedValue, FadeIn, FadeOut, withSpring, withTiming, useA
 import { Link } from 'expo-router';
 
 
+
 let suits = ["♣️", "❤️", "♠️", "♦️"];
 let numbers = ['2', '3', '4', '5', '6', '7', '8', '9', '10', "J", "Q", "K", "A"];
 let resultTextColor = "rgb(255, 255, 255)";
@@ -22,7 +23,7 @@ const App = () => {
   const [dealerTotal, setDealerTotal] = useState(0);
 
   const [stage, setStage] = useState("betting");
-  const [bet, setBet] = useState(null);
+  const [bet, setBet] = useState(undefined);
   const [init, setInit] = useState(true);
   const [profit, setProfit] = useState(0);
   const [noTouch, setNoTouch] = useState(false);
@@ -35,6 +36,7 @@ const App = () => {
   const [tickets, setTickets] = useState(0);
   const [diamonds, setDiamonds] = useState(0);  
   const [boosts, setBoosts] = useState({"studyRequirement": 1800, "gameMult": 1, "exchangeRate": 100})
+  const [settings, setSettings] = useState(0);
 
 
   const saveTicketData = async () => {
@@ -91,14 +93,26 @@ const App = () => {
     }
   };
 
+  const getSettings = async () => {
+    console.log("got data");
+    try {
+      const value = await AsyncStorage.getItem("@settings");
+      if (value !== null) {
+        setSettings(JSON.parse(value));
+      }
+    } catch (error) {
+      console.error('Error getting data:', error);
+    }
+  };
+
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       getTicketData();
       getDiamondData();
       getBoostData();
+      getSettings();
       isInitialMount.current = false;
-      drawCard();
     });
     return unsubscribe;
   }, [navigation]);
@@ -129,7 +143,7 @@ const App = () => {
   
   useEffect(() => {
     if (stage == "betting" && init == true) {
-      setBet(null);
+      setBet(undefined);
       setPlayerCards([]);
       setDealerCards([]);
       setInit(false);
@@ -152,7 +166,7 @@ const App = () => {
       resultAnim();
       await pause(3000);
       setInit(true);
-      setBet(null);
+      setBet(undefined);
       setStage("betting");
     }
   }
@@ -205,7 +219,7 @@ const App = () => {
       setDiamonds(diamonds+Math.round(Number(bet)));
     }
     setStage("betting");
-    setBet(null);
+    setBet(undefined);
     setInit(true);
     setNoTouch(false);
   };
@@ -267,7 +281,7 @@ const App = () => {
 
     <View style={styles.container}>
 
-      <Image source={require('@/assets/images/play.png')} style={{height:75, resizeMode:"contain", alignSelf:"flex-start", margin:30, marginLeft:-75}}></Image>
+      <Image source={require('@/assets/images/play.png')} style={{width:"30%", resizeMode:"contain", alignSelf:"flex-start", margin:"2%"}}></Image>
 
       <View style={[styles.horizontalBreak, {marginTop: 0, backgroundColor: "#ffdb25ff"}]}></View>
 
@@ -334,6 +348,12 @@ const App = () => {
       </View>
 
       <Text style={styles.appButtonText}>Current Diamond Multiplyer: x{Math.round(boosts["gameMult"]*100)/100}</Text>
+
+      {settings['devToolsEnabled'] && <PopButton
+        onPress={() => {setDiamonds(diamonds+1000)}}
+        style={[styles.buttonContainer, {backgroundColor: "rgb(50, 50, 200)", height:40, width:400}]}>
+        <Text style={styles.appButtonText}>(DEV TOOL) Press to get 1000 diamonds</Text>
+      </PopButton>}
       
 
       {noTouch && <Animated.View style={[styles.container, resultBgAnimStyle, {position:"absolute", backgroundColor:"rgba(119, 119, 119, 0.63)", justifyContent:"center", height:"100%", width:"100%"}]}></Animated.View>}

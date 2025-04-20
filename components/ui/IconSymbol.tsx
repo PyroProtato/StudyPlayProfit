@@ -15,7 +15,9 @@ const MAPPING = {
   'chevron.right': 'chevron-right',
   'attach-money': 'attach-money',
   'gamepad':'gamepad',
-  'access-time-filled':'access-time-filled'
+  'access-time-filled':'access-time-filled',
+  'settings':'settings'
+
 } as Partial<
   Record<
     import('expo-symbols').SymbolViewProps['name'],

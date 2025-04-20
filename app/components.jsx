@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import styles from "@/app/styles.js";
+import { Audio } from 'expo-av';
 import Animated, { useSharedValue, withSpring, withTiming, useAnimatedStyle, Easing, } from 'react-native-reanimated';
 
 export const PopButton = ({children, onPress, style}) => {
